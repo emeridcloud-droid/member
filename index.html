@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emerid Cloud — Member &amp; Cloud Points</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="brand">
+    <div class="brand-mark"><img src="img/117c184a-77ce-421f-a412-986003eb6faf.jpg" alt="" width="40" height="40"></div>
+    <div class="brand-text">
+      <strong>EMERID CLOUD</strong>
+      <span>More Than Vape, It's a Lifestyle</span>
+    </div>
+  </div>
+  <nav id="nav">
+    <button class="nav-item active" data-panel="pos">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg>
+      Kasir / POS
+    </button>
+    <button class="nav-item" data-panel="member">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+      Member
+    </button>
+    <button class="nav-item" data-panel="ledger">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h9l5 5v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M9 12h6M9 16h6M9 8h2"/></svg>
+      Point Ledger
+    </button>
+    <button class="nav-item" data-panel="reward">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M8.5 13 7 21l5-3 5 3-1.5-8"/></svg>
+      Reward &amp; Campaign
+    </button>
+    <button class="nav-item" data-panel="dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>
+      Dashboard
+    </button>
+    <button class="nav-item" data-panel="setting">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.04 1.56V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 8.96 19a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.56-1.04H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 8.96a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1.04-1.56V3a2 2 0 1 1 4 0v.09A1.7 1.7 0 0 0 15.04 4.6a1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.56 1.04H21a2 2 0 1 1 0 4h-.09A1.7 1.7 0 0 0 19.4 15Z"/></svg>
+      Setting
+    </button>
+  </nav>
+  <div class="sidebar-foot">
+    Emerid Cloud Member System<br>v1.0 — internal reference build
+  </div>
+</aside>
+
+<main>
+
+  <!-- ============ POS ============ -->
+  <section class="panel active" id="panel-pos">
+    <div class="topbar">
+      <div>
+        <h1>Kasir — Transaksi Member</h1>
+        <p>Cari member lewat nomor WhatsApp, hitung Cloud Points, lalu selesaikan transaksi.</p>
+      </div>
+      <div class="today" id="clock"></div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>1. Cari Member</h3>
+        <p class="hint">Member ID utama adalah nomor WhatsApp.</p>
+        <div class="row">
+          <div class="field" style="flex:2;">
+            <label>Nomor WhatsApp</label>
+            <input type="tel" id="posSearchWa" placeholder="08xxxxxxxxxx">
+          </div>
+          <div class="field" style="flex:0 0 auto;align-self:flex-end;">
+            <button class="btn btn-primary" id="posSearchBtn" style="height:41px;">Cari</button>
+          </div>
+        </div>
+        <div id="posSearchResult"></div>
+
+        <div class="divider"></div>
+        <h3>2. Detail Transaksi</h3>
+        <div class="row">
+          <div class="field">
+            <label>Subtotal (Rp)</label>
+            <input type="number" id="posSubtotal" placeholder="0" min="0">
+          </div>
+          <div class="field">
+            <label>Diskon / Promo (Rp)</label>
+            <input type="number" id="posDiscount" placeholder="0" min="0" value="0">
+          </div>
+        </div>
+
+        <div id="posRewardBlock" style="display:none;">
+          <div class="divider"></div>
+          <h3>3. Redeem Reward <span class="muted small">(opsional)</span></h3>
+          <p class="hint">Maksimum potongan reward = 20% dari nilai transaksi setelah diskon.</p>
+          <div id="posRewardList"></div>
+        </div>
+
+        <div class="divider"></div>
+        <button class="btn btn-primary btn-block" id="posCompleteBtn" disabled style="padding:13px;">Selesaikan Transaksi</button>
+        <div id="posMsg"></div>
+      </div>
+
+      <div>
+        <div id="posMemberCardWrap"></div>
+        <div class="card" style="margin-top:18px;">
+          <h3>Estimasi Transaksi Ini</h3>
+          <p class="hint">Poin dihitung dari net amount × multiplier tier × multiplier campaign, dibulatkan ke bawah.</p>
+          <table>
+            <tr><td class="muted">Net amount</td><td id="calcNet" style="text-align:right;font-weight:700;">Rp0</td></tr>
+            <tr><td class="muted">Base points</td><td id="calcBase" style="text-align:right;">0</td></tr>
+            <tr><td class="muted">Tier multiplier</td><td id="calcTierMult" style="text-align:right;">1.00x</td></tr>
+            <tr><td class="muted">Campaign multiplier</td><td id="calcCampMult" style="text-align:right;">1.00x</td></tr>
+            <tr><td class="muted">Potongan reward</td><td id="calcRewardDisc" style="text-align:right;">Rp0</td></tr>
+            <tr><td style="font-weight:700;">Earned Points</td><td id="calcEarned" style="text-align:right;font-weight:800;color:var(--teal);font-family:'Sora',sans-serif;font-size:16px;">+0</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MEMBER ============ -->
+  <section class="panel" id="panel-member">
+    <div class="topbar">
+      <div>
+        <h1>Member List</h1>
+        <p>Seluruh member terdaftar, tier, dan saldo Cloud Points.</p>
+      </div>
+      <button class="btn btn-gold" id="openRegisterBtn">+ Daftarkan Member</button>
+    </div>
+
+    <div class="card" id="registerCard" style="display:none;margin-bottom:18px;">
+      <h3>Daftarkan Member Baru</h3>
+      <p class="hint">Welcome points diberikan otomatis sesuai setting (<span id="welcomePreview"></span> Points).</p>
+      <div class="row">
+        <div class="field"><label>Nama</label><input type="text" id="regName" placeholder="Nama pelanggan"></div>
+        <div class="field"><label>Nomor WhatsApp</label><input type="tel" id="regWa" placeholder="08xxxxxxxxxx"></div>
+      </div>
+      <div class="row">
+        <button class="btn btn-primary" id="regSubmitBtn">Daftarkan</button>
+        <button class="btn btn-ghost" id="regCancelBtn">Batal</button>
+      </div>
+      <div id="regMsg"></div>
+    </div>
+
+    <div class="card">
+      <table id="memberTable">
+        <thead>
+          <tr><th>Member</th><th>WhatsApp</th><th>Tier</th><th>Total Belanja</th><th>Saldo Points</th><th>Status</th></tr>
+        </thead>
+        <tbody id="memberTbody"></tbody>
+      </table>
+      <div class="empty" id="memberEmpty" style="display:none;">Belum ada member terdaftar.</div>
+    </div>
+  </section>
+
+  <!-- ============ LEDGER ============ -->
+  <section class="panel" id="panel-ledger">
+    <div class="topbar">
+      <div>
+        <h1>Point Ledger</h1>
+        <p>Mutasi poin bersifat auditable — setiap perubahan saldo tercatat di sini.</p>
+      </div>
+    </div>
+    <div class="pill-row" id="ledgerFilterMember"></div>
+    <div class="card">
+      <table>
+        <thead>
+          <tr><th>Waktu</th><th>Member</th><th>Tipe</th><th>Keterangan</th><th>Poin</th><th>Saldo Sesudah</th></tr>
+        </thead>
+        <tbody id="ledgerTbody"></tbody>
+      </table>
+      <div class="empty" id="ledgerEmpty" style="display:none;">Belum ada mutasi poin.</div>
+    </div>
+  </section>
+
+  <!-- ============ REWARD & CAMPAIGN ============ -->
+  <section class="panel" id="panel-reward">
+    <div class="topbar">
+      <div>
+        <h1>Reward Catalogue &amp; Campaign</h1>
+        <p>Kelola daftar reward dan promo point campaign.</p>
+      </div>
+    </div>
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Reward Catalogue</h3>
+        <p class="hint">Redeem minimum <span id="minRedeemLabel"></span> Points. Batas potongan 20% dari nilai transaksi.</p>
+        <table>
+          <thead><tr><th>Reward</th><th>Poin</th><th>Potongan</th><th>Status</th><th></th></tr></thead>
+          <tbody id="rewardTbody"></tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Point Campaign</h3>
+        <p class="hint">Multiplier tambahan di luar multiplier tier, berlaku pada periode tertentu.</p>
+        <div id="campaignBlock"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DASHBOARD ============ -->
+  <section class="panel" id="panel-dashboard">
+    <div class="topbar">
+      <div>
+        <h1>Dashboard Admin</h1>
+        <p>Ringkasan performa program loyalty Emerid Cloud.</p>
+      </div>
+    </div>
+    <div class="grid grid-4" id="kpiGrid" style="margin-bottom:18px;"></div>
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Distribusi Tier Member</h3>
+        <div id="tierDist"></div>
+      </div>
+      <div class="card">
+        <h3>Poin Akan Kedaluwarsa (30 hari)</h3>
+        <div id="expiringList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SETTING ============ -->
+  <section class="panel" id="panel-setting">
+    <div class="topbar">
+      <div>
+        <h1>Setting Program</h1>
+        <p>Seluruh parameter dapat diubah tanpa mengubah source code.</p>
+      </div>
+    </div>
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Parameter Poin</h3>
+        <div class="setting-grid">
+          <div class="field"><label>Konversi (Rp per 1 Point)</label><input type="number" id="setConversion"></div>
+          <div class="field"><label>Welcome Points</label><input type="number" id="setWelcome"></div>
+          <div class="field"><label>Minimum Redeem (Points)</label><input type="number" id="setMinRedeem"></div>
+          <div class="field"><label>Maks. Pembayaran dgn Reward (%)</label><input type="number" id="setMaxRedeemPct"></div>
+          <div class="field"><label>Masa Berlaku Poin (bulan)</label><input type="number" id="setExpiry"></div>
+        </div>
+        <button class="btn btn-primary" id="saveSettingBtn">Simpan Setting</button>
+        <div id="setMsg"></div>
+      </div>
+      <div class="card">
+        <h3>Tier Member</h3>
+        <p class="hint">Ditentukan dari total belanja rolling 12 bulan.</p>
+        <div class="tier-list" id="tierListView"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
